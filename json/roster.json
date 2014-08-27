@@ -1,10 +1,12 @@
 [
 	{
 		"name": "Piyal Basu",
-		"email": "pbasu@grey.com"
+		"email": "pbasu@grey.com",
+		"device": ""
 	},
 	{
 		"name": "Second Person",
-		"email": "person@grey.com"
+		"email": "person@grey.com",
+		"device": ""
 	}
 ]

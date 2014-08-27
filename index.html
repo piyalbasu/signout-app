@@ -3,19 +3,41 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Angular Demo</title>
+
+	<style>
+		#devices {
+			display: none;
+		}
+	</style>
 </head>
 <body>
 
 	<div ng-app = "signOut">
 		<div ng-controller="RosterCtrl">
+			<form>
 			<input type="text" ng-model="search.$">
       <table>
-        <tr ng-repeat="person in roster.members | filter:search">
+        <tr ng-repeat="person in roster | filter:search" enter>
             <td>{{person.name}}</td>
             <td>{{person.email}}</td>
+            <td><input type="text" ng-model="person.device" ></td>
+        </tr>
+      </table>
+      <button ng-click="save()">Save</button>
+      </form>
+      <p>{{msg}}</p>
+		</div>
+
+		<div id="devices" ng-controller="DeviceCtrl">
+			<input type="text" ng-model="search.$">
+      <table>
+        <tr ng-repeat="item in devices.list | filter:search" enter>
+            <td>{{item.device}}</td>
         </tr>
       </table>
 		</div>
+
+
 	</div>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
