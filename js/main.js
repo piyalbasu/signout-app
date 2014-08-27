@@ -1,12 +1,12 @@
 var signOut = angular.module('signOut', []);
 
-// signOut.factory('Roster', function($http){
-// 	var Roster = {};
-// 	$http.get('json/roster.json').success(function(data){
-// 		Roster.members = data;
-// 	});
-// 	return Roster;
-// });
+signOut.factory('Roster', function($http){
+	var Roster = {};
+	$http.get('json/roster.json').success(function(data){
+		Roster.members = data;
+	});
+	return Roster;
+});
 
 signOut.factory('Devices', function($http){
 	var Devices = {};
@@ -17,32 +17,35 @@ signOut.factory('Devices', function($http){
 });
 
 
-signOut.controller('RosterCtrl', function($scope, $http) {
-	$http.get('json/roster.json').success(function(data){
-		$scope.roster = data;
-	});
-	
+signOut.controller('RosterCtrl', function($scope, $http, Roster, Devices) {
+	var storedItem = JSON.parse(localStorage.getItem('deviceStorage'));
+	if(!storedItem) {
+	 	storedItem = Roster;
+	 }
+		$scope.roster = storedItem;
+		$scope.devices = Devices;
 
 	$scope.save = function() {
     $http.post('json/roster.json', $scope.roster).then(function(data) {
-     
-     localStorage.setItem('gameStorage', JSON.stringify($scope.roster));
-     	$scope.msg = JSON.parse(localStorage.getItem('gameStorage'));
+     localStorage.setItem('deviceStorage', JSON.stringify($scope.roster));
+     for (var i in $scope.roster) {
+		   for (var j in $scope.roster[i]) {
+		   	localStorage.setItem('deviceStorage' + i, JSON.stringify($scope.roster[i][j]));
+		   }
+		}
+		storedItem = JSON.parse(localStorage.getItem('deviceStorage'));
+		$scope.msg = storedItem;
     });
-    //$scope.msg = 'Data sent: '+ JSON.stringify($scope.languages);
   };
+
 });
 
-function DeviceCtrl($scope, Devices) {
-	$scope.devices = Devices;
-}
-
-signOut.directive("enter", function() {
-    return function(scope, element) {
-        element.bind("click", function() {
-            document.getElementById('devices').style.display = 'block';
-        })
-    }
+signOut.directive("activate", function() {
+  return function(scope, element) {
+    element.bind("click", function() {
+        document.getElementById('table').setAttribute('class','active');
+    });
+  }
 });
 
 

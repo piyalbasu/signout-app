@@ -3,6 +3,18 @@
 		"device": "iPhone 4S"
 	},
 	{
-		"device": "Android"
+		"device": "Samsung Galaxy"
+	},
+	{
+		"device": "Palm Pilot"
+	},
+	{
+		"device": "Zack Morris phone"
+	},
+	{
+		"device": "Nokia"
+	},
+	{
+		"device": "Motorola Razor"
 	}
 ]
