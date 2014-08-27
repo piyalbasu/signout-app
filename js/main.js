@@ -25,7 +25,9 @@ signOut.controller('RosterCtrl', function($scope, $http) {
 
 	$scope.save = function() {
     $http.post('json/roster.json', $scope.roster).then(function(data) {
-     $scope.msg = 'Data sent: '+ JSON.stringify($scope.roster[0].email);
+     
+     localStorage.setItem('gameStorage', JSON.stringify($scope.roster));
+     	$scope.msg = JSON.parse(localStorage.getItem('gameStorage'));
     });
     //$scope.msg = 'Data sent: '+ JSON.stringify($scope.languages);
   };
